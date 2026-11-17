@@ -1,0 +1,142 @@
+﻿
+@model StudentPerformanceAnalysis.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = "_AccountLayout";
+}
+
+<div class="auth-shell">
+    <div class="auth-card auth-register">
+
+        <section class="auth-brand-panel">
+            <a asp-controller="Home" asp-action="Index"
+               class="auth-brand">
+                <span class="auth-brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+                <span>
+                    <strong>Student Analytics</strong>
+                    <small>Performance System</small>
+                </span>
+            </a>
+
+            <div class="auth-brand-content">
+                <span class="auth-eyebrow">GET STARTED</span>
+                <h1>Your academic insights start here.</h1>
+                <p>
+                    Manage student records, monitor results, and
+                    turn academic data into meaningful insights.
+                </p>
+
+                <div class="auth-benefit">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Organized academic records</span>
+                </div>
+                <div class="auth-benefit">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Performance and statistical reports</span>
+                </div>
+                <div class="auth-benefit">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>One place for academic management</span>
+                </div>
+            </div>
+
+            <div class="auth-brand-footer">
+                Academic Management &amp; Statistical Reporting
+            </div>
+        </section>
+
+        <section class="auth-form-panel">
+            <div class="auth-form-content">
+                <a asp-controller="Home" asp-action="Index"
+                   class="auth-mobile-brand">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Student Analytics
+                </a>
+
+                <div class="auth-heading">
+                    <span class="auth-step">CREATE YOUR ACCOUNT</span>
+                    <h2>Let's get you started</h2>
+                    <p>Enter your details to create your account.</p>
+                </div>
+
+                <form asp-controller="Account"
+                      asp-action="Register"
+                      method="post">
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="auth-validation"></div>
+
+                    <div class="auth-field">
+                        <label asp-for="Email">Email address</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-envelope"></i>
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="name@example.com"
+                                   autocomplete="email" />
+                        </div>
+                        <span asp-validation-for="Email"
+                              class="auth-field-error"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="Password">Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-lock"></i>
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="Create a strong password"
+                                   autocomplete="new-password" />
+                        </div>
+                        <span asp-validation-for="Password"
+                              class="auth-field-error"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="ConfirmPassword">
+                            Confirm password
+                        </label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-shield-lock"></i>
+                            <input asp-for="ConfirmPassword"
+                                   class="form-control"
+                                   placeholder="Enter your password again"
+                                   autocomplete="new-password" />
+                        </div>
+                        <span asp-validation-for="ConfirmPassword"
+                              class="auth-field-error"></span>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Create Account
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <a asp-controller="Account" asp-action="Login">
+                        Log in
+                    </a>
+                </p>
+
+                <a asp-controller="Home" asp-action="Index"
+                   class="auth-back">
+                    <i class="bi bi-arrow-left"></i>
+                    Back to homepage
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <p class="auth-copyright">
+        © @DateTime.Now.Year Student Analytics · Academic Performance System
+    </p>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

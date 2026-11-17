@@ -1,0 +1,183 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Student Performance Analysis</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+<body>
+    @{
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        var action = ViewContext.RouteData.Values["action"]?.ToString();
+
+        var isPublicLandingPage = controller == "Home" && action == "Index";
+        var isAuthPage = controller == "Account";
+    }
+
+    @if (isPublicLandingPage || isAuthPage)
+    {
+        @RenderBody()
+    }
+    else
+    {
+        <div class="app-container">
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <a asp-controller="Dashboard"
+                   asp-action="Index"
+                   class="brand text-decoration-none">
+                    <div class="brand-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+
+                    <div>
+                        <h5>Student Analytics</h5>
+                        <small>Performance System</small>
+                    </div>
+                </a>
+
+                <div class="sidebar-label">MAIN MENU</div>
+
+                <nav class="sidebar-nav">
+                    <a asp-controller="Dashboard"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Dashboard" ? "active" : "")">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a asp-controller="Student"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Student" ? "active" : "")">
+                        <i class="bi bi-people"></i>
+                        <span>Students</span>
+                    </a>
+
+                    <a asp-controller="Department"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Department" ? "active" : "")">
+                        <i class="bi bi-building"></i>
+                        <span>Departments</span>
+                    </a>
+
+                    <a asp-controller="Course"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Course" ? "active" : "")">
+                        <i class="bi bi-journal-bookmark"></i>
+                        <span>Courses</span>
+                    </a>
+
+                    <a asp-controller="Result"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Result" ? "active" : "")">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Results</span>
+                    </a>
+
+                    <a asp-controller="Attendance"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Attendance" ? "active" : "")">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Attendance</span>
+                    </a>
+
+                    <div class="sidebar-label mt-4">ANALYTICS</div>
+
+                    <a asp-controller="Statistics"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Statistics" ? "active" : "")">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>Statistical Reports</span>
+                    </a>
+
+                    <a asp-controller="Reports"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Reports" ? "active" : "")">
+                        <i class="bi bi-file-earmark-bar-graph"></i>
+                        <span>Reports</span>
+                    </a>
+
+                    <a asp-controller="Settings"
+                       asp-action="Index"
+                       class="nav-item-custom @(controller == "Settings" ? "active" : "")">
+                        <i class="bi bi-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <i class="bi bi-info-circle"></i>
+                    <span>Student Performance Analysis</span>
+                </div>
+            </aside>
+
+            <!-- Main application area -->
+            <main class="main-content">
+
+                <header class="topbar">
+                    <div class="topbar-heading">
+                        <h6>Student Performance Analysis</h6>
+                        <small>
+                            Academic Management &amp; Statistical Reporting
+                        </small>
+                    </div>
+
+                    <div class="topbar-actions">
+                        <form class="topbar-search"
+                              role="search"
+                              onsubmit="return false;">
+                            <i class="bi bi-search"></i>
+                            <input type="search"
+                                   placeholder="Search..."
+                                   aria-label="Search" />
+                        </form>
+
+                        <button type="button"
+                                class="notification-btn"
+                                aria-label="Notifications">
+                            <i class="bi bi-bell"></i>
+                        </button>
+
+                        <div class="admin-profile">
+                            <div class="admin-avatar">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+
+                            <div class="admin-details">
+                                <strong>Administrator</strong>
+                                <small>Admin</small>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="page-content">
+                    @RenderBody()
+                </section>
+
+                <footer class="app-footer">
+                    Student Performance Analysis
+                    &copy; @DateTime.Now.Year
+                </footer>
+            </main>
+        </div>
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

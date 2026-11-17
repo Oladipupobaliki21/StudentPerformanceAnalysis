@@ -1,0 +1,132 @@
+﻿
+@model StudentPerformanceAnalysis.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_AccountLayout";
+}
+
+<div class="auth-shell">
+    <div class="auth-card">
+
+        <section class="auth-brand-panel">
+            <a asp-controller="Home" asp-action="Index"
+               class="auth-brand">
+                <span class="auth-brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+                <span>
+                    <strong>Student Analytics</strong>
+                    <small>Performance System</small>
+                </span>
+            </a>
+
+            <div class="auth-brand-content">
+                <span class="auth-eyebrow">WELCOME BACK</span>
+                <h1>Better insights. Better decisions.</h1>
+                <p>
+                    Access your academic management workspace and
+                    stay connected to student performance.
+                </p>
+
+                <div class="auth-quote">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <p>
+                        Every result tells a story. Use your data
+                        to understand student progress.
+                    </p>
+                </div>
+            </div>
+
+            <div class="auth-brand-footer">
+                Academic Management &amp; Statistical Reporting
+            </div>
+        </section>
+
+        <section class="auth-form-panel">
+            <div class="auth-form-content">
+                <a asp-controller="Home" asp-action="Index"
+                   class="auth-mobile-brand">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    Student Analytics
+                </a>
+
+                <div class="auth-heading">
+                    <span class="auth-step">YOUR WORKSPACE</span>
+                    <h2>Welcome back!</h2>
+                    <p>Log in to continue to your dashboard.</p>
+                </div>
+
+                <form asp-controller="Account"
+                      asp-action="Login"
+                      method="post">
+
+                    <input type="hidden" name="returnUrl"
+                           value="@ViewData["ReturnUrl"]" />
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="auth-validation"></div>
+
+                    <div class="auth-field">
+                        <label asp-for="Email">Email address</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-envelope"></i>
+                            <input asp-for="Email"
+                                   class="form-control"
+                                   placeholder="name@example.com"
+                                   autocomplete="username" />
+                        </div>
+                        <span asp-validation-for="Email"
+                              class="auth-field-error"></span>
+                    </div>
+
+                    <div class="auth-field">
+                        <label asp-for="Password">Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="bi bi-lock"></i>
+                            <input asp-for="Password"
+                                   class="form-control"
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password" />
+                        </div>
+                        <span asp-validation-for="Password"
+                              class="auth-field-error"></span>
+                    </div>
+
+                    <div class="auth-options">
+                        <label class="auth-remember">
+                            <input asp-for="RememberMe" />
+                            <span>Remember me</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        Log In
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </form>
+
+                <p class="auth-switch">
+                    Don't have an account?
+                    <a asp-controller="Account" asp-action="Register">
+                        Create an account
+                    </a>
+                </p>
+
+                <a asp-controller="Home" asp-action="Index"
+                   class="auth-back">
+                    <i class="bi bi-arrow-left"></i>
+                    Back to homepage
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <p class="auth-copyright">
+        © @DateTime.Now.Year Student Analytics · Academic Performance System
+    </p>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

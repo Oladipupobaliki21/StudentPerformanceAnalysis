@@ -1,0 +1,266 @@
+﻿
+@model StudentPerformanceAnalysis.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="dashboard-page">
+
+    <!-- Welcome Section -->
+    <div class="dashboard-welcome">
+        <div>
+            <span class="welcome-label">OVERVIEW</span>
+            <h1>Welcome, Admin!</h1>
+            <p>Here's what's happening with your academic records today.</p>
+        </div>
+
+        <div class="dashboard-date">
+            <i class="bi bi-calendar3"></i>
+            @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <div class="summary-icon students-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="summary-info">
+                <p>Total Students</p>
+                <h2>@Model.TotalStudents</h2>
+                <span>Registered students</span>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon courses-icon">
+                <i class="bi bi-journal-bookmark-fill"></i>
+            </div>
+            <div class="summary-info">
+                <p>Total Courses</p>
+                <h2>@Model.TotalCourses</h2>
+                <span>Available courses</span>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon average-icon">
+                <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <div class="summary-info">
+                <p>Average Score</p>
+                <h2>@Model.AverageScore.ToString("F2")%</h2>
+                <span>Overall average performance</span>
+            </div>
+        </div>
+
+        <div class="summary-card">
+            <div class="summary-icon pass-icon">
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div class="summary-info">
+                <p>Pass Rate</p>
+                <h2>--</h2>
+                <span>Overall pass percentage</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Key Statistics and Grade Distribution -->
+    <div class="dashboard-middle-grid">
+
+        <!-- Key Statistics -->
+        <div class="dashboard-panel statistics-panel">
+
+            <div class="panel-heading">
+                <h3>Key Statistics</h3>
+                <span class="panel-icon">
+                    <i class="bi bi-calculator"></i>
+                </span>
+            </div>
+
+            <div class="statistics-list">
+
+                <div class="stat-measure">
+                    <div class="measure-heading">
+                        <span>Mean Score</span>
+                        <strong>@Model.Mean.ToString("F2")</strong>
+                    </div>
+                    <div class="measure-track">
+                        <div class="measure-fill mean-fill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-measure">
+                    <div class="measure-heading">
+                        <span>Median Score</span>
+                        <strong>@Model.Median.ToString("F2")</strong>
+                    </div>
+                    <div class="measure-track">
+                        <div class="measure-fill median-fill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-measure">
+                    <div class="measure-heading">
+                        <span>Standard Deviation</span>
+                        <strong>@Model.StandardDeviation.ToString("F2")</strong>
+                    </div>
+                    <div class="measure-track">
+                        <div class="measure-fill deviation-fill"></div>
+                    </div>
+                </div>
+
+                <div class="stat-measure">
+                    <div class="measure-heading">
+                        <span>Highest Score</span>
+                        <strong>@Model.HighestScore.ToString("F2")</strong>
+                    </div>
+                    <div class="measure-track">
+                        <div class="measure-fill mean-fill"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="panel-note">
+                Statistical summary of recorded student scores.
+            </p>
+
+        </div>
+
+        <!-- Grade Distribution -->
+        <div class="dashboard-panel">
+
+            <div class="panel-heading">
+                <h3>Grade Distribution</h3>
+                <span class="panel-icon">
+                    <i class="bi bi-pie-chart-fill"></i>
+                </span>
+            </div>
+
+            <div class="grade-layout">
+
+                <div class="grade-chart-wrap">
+                    <canvas id="gradeDistributionChart"></canvas>
+                </div>
+
+                <div class="grade-legend">
+                    <div>
+                        <span class="legend-dot grade-a"></span>
+                        Grade A <strong>--</strong>
+                    </div>
+                    <div>
+                        <span class="legend-dot grade-b"></span>
+                        Grade B <strong>--</strong>
+                    </div>
+                    <div>
+                        <span class="legend-dot grade-c"></span>
+                        Grade C <strong>--</strong>
+                    </div>
+                    <div>
+                        <span class="legend-dot grade-d"></span>
+                        Grade D <strong>--</strong>
+                    </div>
+                    <div>
+                        <span class="legend-dot grade-f"></span>
+                        Grade F <strong>--</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Performance Analysis -->
+    <div class="dashboard-bottom-grid">
+
+        <!-- Pass and Fail Comparison -->
+        <div class="dashboard-panel chart-panel">
+
+            <div class="panel-heading">
+                <h3>Pass / Fail Comparison</h3>
+                <span class="panel-icon">
+                    <i class="bi bi-bar-chart-fill"></i>
+                </span>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="passFailChart"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Score Distribution -->
+        <div class="dashboard-panel chart-panel">
+
+            <div class="panel-heading">
+                <h3>Score Distribution</h3>
+                <span class="panel-icon">
+                    <i class="bi bi-graph-up"></i>
+                </span>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="scoreDistributionChart"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Performance by Course -->
+        <div class="dashboard-panel course-panel">
+
+            <div class="panel-heading">
+                <h3>Performance by Course</h3>
+                <span class="panel-icon">
+                    <i class="bi bi-book-half"></i>
+                </span>
+            </div>
+
+            <div class="course-performance">
+
+                @if (Model.CoursePerformances.Any())
+                {
+                    @foreach (var course in Model.CoursePerformances)
+                    {
+                        <div class="course-item">
+                            <div class="course-item-heading">
+                                <span>@course.CourseName</span>
+                                <strong>@course.AverageScore.ToString("F2")</strong>
+                            </div>
+
+                            <div class="measure-track">
+                                <div class="measure-fill mean-fill"
+                                     style="width: @(Math.Clamp(course.AverageScore, 0, 100))%">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="panel-note">
+                        No course performance records available yet.
+                    </p>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Dashboard Note -->
+    <div class="dashboard-disclaimer">
+        <i class="bi bi-info-circle"></i>
+        Dashboard statistics are based on available student result records.
+    </div>
+
+</div>
